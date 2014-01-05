@@ -1,5 +1,7 @@
 from django.db import models
 
+
+'''County Models'''
 class County(models.Model):
     name = models.CharField(max_length=255)
     num = models.CharField(max_length=255, default='',
@@ -9,6 +11,7 @@ class County(models.Model):
         return self.name
 
 
+'''Ward Models'''
 class Ward(models.Model):
     name = models.CharField(max_length=255)
     num = models.CharField(max_length=255, default='',
@@ -18,6 +21,8 @@ class Ward(models.Model):
     def __unicode__(self):
         return self.name
 
+
+'''Location Models'''
 class Location(models.Model):
     name = models.CharField(max_length=255)
     num = models.CharField(max_length=255, default='',
