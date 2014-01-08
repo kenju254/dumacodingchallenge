@@ -1,7 +1,6 @@
 #! usr/bin/env/ python
 
 import os
-import sys
 import csv
 
 #from django.core.management import setup_environ
