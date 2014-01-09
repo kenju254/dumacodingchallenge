@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from places import models
+from places.models import *
 
 '''County Model on Admin'''
 class CountyAdmin(admin.ModelAdmin):
@@ -15,6 +15,6 @@ class LocationAdmin(admin.ModelAdmin):
     pass
 
 
-admin.site.register(models.County, CountyAdmin)
-admin.site.register(models.Ward, WardAdmin)
-admin.site.register(models.Location, LocationAdmin)
+admin.site.register(County, CountyAdmin)
+admin.site.register(Ward, WardAdmin)
+admin.site.register(Location, LocationAdmin)

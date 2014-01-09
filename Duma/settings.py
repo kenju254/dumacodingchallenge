@@ -157,6 +157,7 @@ INSTALLED_APPS = (
     #Project Applications
     'places',
     'userprofile',
+    'main',
 
 )
 
@@ -190,3 +191,7 @@ LOGGING = {
         },
     }
 }
+
+# Email Settings
+
+EMAIL_RECEPIENT = DEBUG and 'kenmbugua@gmail.com'

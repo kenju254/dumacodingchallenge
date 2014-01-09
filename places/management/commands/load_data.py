@@ -3,12 +3,6 @@
 import os
 import csv
 
-#from django.core.management import setup_environ
-#sys.path.append(os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)),'Duma')))
-#from Duma import settings
-#setup_environ(settings)
-#os.environ['DJANGO_SETTINGS_MODULE'] = 'settings'
-
 from django.core.management.base import BaseCommand
 from places.models import County, Ward, Location
 
@@ -21,10 +15,10 @@ class Command(BaseCommand):
     def insert_counties(self):
         ''' Loading Counties into the Database'''
         with county_data:
-            self.reader = csv.DictReader(county_data, fieldnames=['name','num'])
+            self.reader = csv.DictReader(county_data, fieldnames=['num','name'])
             for row in self.reader:
                 self.county = County(name=row['name'],
-                    num=row['num'])
+                                num=row['num'])
                 self.county.save()
 
 
@@ -35,7 +29,7 @@ class Command(BaseCommand):
             self.reader = csv.DictReader(ward_data, fieldnames=['num','name', 'countynum'])
             for row in self.reader:
                 self.ward = Ward(name=row['name'],
-                    num=row['num'])
+                            num=row['num'])
 
                 #Try catch block connects the countynum to the ward table
                 try:
