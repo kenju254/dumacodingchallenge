@@ -1,8 +1,9 @@
 from django.db import models
 
 
-'''County Models'''
+
 class County(models.Model):
+    '''County Models'''
     name = models.CharField(max_length=255)
     num = models.CharField(max_length=255, default='',
                             blank=True)
@@ -11,8 +12,9 @@ class County(models.Model):
         return self.name
 
 
-'''Ward Models'''
+
 class Ward(models.Model):
+    '''Ward Models'''
     name = models.CharField(max_length=255)
     num = models.CharField(max_length=255, default='',
                             blank=True)
@@ -22,8 +24,9 @@ class Ward(models.Model):
         return self.name
 
 
-'''Location Models'''
+
 class Location(models.Model):
+    '''Location Models'''
     name = models.CharField(max_length=255)
     num = models.CharField(max_length=255, default='',
                             blank=True)

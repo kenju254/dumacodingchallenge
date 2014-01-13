@@ -40,7 +40,7 @@ def select_location(request, template_name='select_location.html'):
             if form.is_valid():
                 county = get_object_or_404(County, pk=int(form.cleaned_data['county']))
                 form = forms.get_ward_form(county)
-                request.session['county'] = county
+                request.session['county'] = county.num
                 label = 'ward'
 
         if request.POST.get('ward'):
@@ -49,16 +49,16 @@ def select_location(request, template_name='select_location.html'):
             if form.is_valid():
                 ward = get_object_or_404(Ward, pk=int(form.cleaned_data['ward']))
                 form = forms.get_location_form(ward)
-                request.session['ward']= ward
+                request.session['ward']= ward.num
                 label = 'location'
 
         if request.POST.get('location'):
             label = 'location'
-            form = form.get_location_form(request.session['ward'])
+            form = forms.get_location_form(request.session['ward'])
             form = form(request.POST); print request.POST
             if form.is_valid():
                 location = get_object_or_404(Location,pk=int(form.cleaned_data['location']))
-                mapping = Mapping(
+                mapping = models.Mapping(
                     profile=request.session['user_profile'],
                     location=location)
                 mapping.save()
