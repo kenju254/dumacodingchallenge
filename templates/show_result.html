@@ -1,4 +1,13 @@
 {% extends 'base.html' %}
 
+
 {% block title %} Show Result {% endblock %}
 
+{% block content %}
+    <table>
+        <tr><td><label>Name:</label></td><input type="text" value="{{ name }}"/></tr>
+        <tr><td><label>Phone Number:</label></td><input type="text" value="{{ phone_number }}"/></tr>
+        <tr><td><label>Location:</label></td><input type="text" value="{{ location }}"/></tr>
+    </table>
+
+{% endblock %}

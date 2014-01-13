@@ -38,8 +38,8 @@ def select_location(request, template_name='select_location.html'):
         if request.POST.get('county'):
             form = forms.CountyForm(request.POST)
             if form.is_valid():
-                county = get_object_or_404()
-                form = forms.get_ward(county)
+                county = get_object_or_404(County, pk=int(form.cleaned_data['county']))
+                form = forms.get_ward_form(county)
                 request.session['county'] = county
                 label = 'ward'
 
