@@ -16,7 +16,7 @@ def select_user(request, template_name='select_option.html'):
         if form.is_valid():
             profile_id = int(form.cleaned_data['user'])
             profile = get_object_or_404(Profile, pk=profile_id)
-            request.session['user_profile'] = profile
+            request.session['user_profile'] = profile.id
             return HttpResponseRedirect(reverse(select_location))
     elif request.method == 'GET':
         form = forms.UsersForm()
@@ -59,8 +59,8 @@ def select_location(request, template_name='select_location.html'):
             if form.is_valid():
                 location = get_object_or_404(Location,pk=int(form.cleaned_data['location']))
                 mapping = models.Mapping(
-                    profile=request.session['user_profile'],
-                    location=location)
+                    profile = request.session['user_profile'],
+                    location =location)
                 mapping.save()
                 request.session['mapping']= mapping
                 request.session['county']= None
