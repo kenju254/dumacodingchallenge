@@ -16,7 +16,7 @@ def select_user(request, template_name='select_option.html'):
         if form.is_valid():
             profile_id = int(form.cleaned_data['user'])
             profile = get_object_or_404(Profile, pk=profile_id)
-            request.session['user_profile'] = profile.id
+            request.session['user_profile'] = profile.user_id
             return HttpResponseRedirect(reverse(select_location))
     elif request.method == 'GET':
         form = forms.UsersForm()
