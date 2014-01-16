@@ -10,13 +10,14 @@ from places.models import County, Ward, Location
 import forms
 import models
 
+
 def select_user(request, template_name='select_option.html'):
     if request.method == 'POST':
         form = forms.UsersForm(request.POST)
         if form.is_valid():
             profile_id = int(form.cleaned_data['user'])
             profile = get_object_or_404(Profile, pk=profile_id)
-            request.session['user_profile'] = profile.user_id
+            request.session['user_profile_id'] = profile.id
             return HttpResponseRedirect(reverse(select_location))
     elif request.method == 'GET':
         form = forms.UsersForm()
@@ -25,13 +26,14 @@ def select_user(request, template_name='select_option.html'):
                             context_instance=RequestContext(request))
 
 
+
 def select_location(request, template_name='select_location.html'):
     label = ''
     if request.method == 'POST':
         if request.POST.get('other') and not request.POST.get('location'):
             form = forms.BaseForm(request.POST)
             mapping = models.Mapping.objects.add_location(name=form.cleaned_data['other'],
-                                                        profile=request.session.get('user_profile'))
+                profile=request.session.get('user_profile'))
             request.session['mapping'] = mapping
             return HttpResponseRedirect(reverse(show_result))
 
@@ -55,12 +57,15 @@ def select_location(request, template_name='select_location.html'):
         if request.POST.get('location'):
             label = 'location'
             form = forms.get_location_form(request.session['ward'])
-            form = form(request.POST); print request.POST
+            form = form(request.POST);
+
             if form.is_valid():
                 location = get_object_or_404(Location,pk=int(form.cleaned_data['location']))
+                profile = get_object_or_404(Profile, pk=1)
+                profile_dict = {"first_name": profile.user.username}
                 mapping = models.Mapping(
-                    profile = request.session['user_profile'],
-                    location =location)
+                profile = profile_dict,
+                location =location)
                 mapping.save()
                 request.session['mapping']= mapping
                 request.session['county']= None
@@ -73,9 +78,9 @@ def select_location(request, template_name='select_location.html'):
 
 
     return render_to_response(template_name,
-                                {'form': form,
-                                'label': label},
-                                context_instance=RequestContext(request))
+        {'form': form,
+         'label': label},
+        context_instance=RequestContext(request))
 
 
 def show_result(request, template_name="show_result.html"):

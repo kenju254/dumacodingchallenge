@@ -6,4 +6,5 @@ urlpatterns = patterns('',
     url('^location/$', 'main.views.select_location'),
     url('^success/$', 'main.views.show_result'),
 
+
 )
